@@ -104,7 +104,7 @@ public abstract class Graph<V extends Comparable<V>> {
 	 * Returns the list of vertices ordered by DFS visit 
 	 * 
 	 * @param g
-	 * @return
+	 * @return out
 	 */
 	public static<V extends Comparable<V>>  List<V> dfs(Graph<V> g) {
 		V start=g.vertices().get(0);
