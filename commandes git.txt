@@ -1,0 +1,9 @@
+pour envoyer ses modifications
+git status
+git add --all
+git commit -m ""
+git push
+
+pour récupérer des modifications
+git pull
+(si il y a des conflicts cf vidéo https://www.youtube.com/watch?v=g8BRcB9NLp4 )
