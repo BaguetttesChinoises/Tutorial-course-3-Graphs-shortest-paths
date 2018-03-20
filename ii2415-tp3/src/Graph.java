@@ -20,13 +20,13 @@ import java.util.Stack;
  */
 public abstract class Graph<V extends Comparable<V>> {
 	
-	protected int nbVertices;
-	protected int nbEdges;
+	protected int n;
+	protected int m;
 	
 	
 	public Graph(int nbVertices, int nbEdges) {
-		this.nbVertices= nbVertices;
-		this.nbEdges = nbEdges;
+		this.n= nbVertices;
+		this.m = nbEdges;
 	}
 	
 	
@@ -38,11 +38,11 @@ public abstract class Graph<V extends Comparable<V>> {
 	}
 	
 	public int order() {
-		return nbVertices;
+		return n;
 	}
 	
 	public int size() {
-		return nbEdges;
+		return m;
 	}
 
 	/**
@@ -107,7 +107,9 @@ public abstract class Graph<V extends Comparable<V>> {
 	 * @return
 	 */
 	public static<V extends Comparable<V>>  List<V> dfs(Graph<V> g) {
-		
+		V start=g.vertices().get(0);
+		List<V>out=new LinkedList();
+		dfs(g, start, out);
 	}
 	
 	
@@ -116,8 +118,27 @@ public abstract class Graph<V extends Comparable<V>> {
 	 * @param g
 	 * @return
 	 */
-	public static<V extends Comparable<V>> List<V> bfs(Graph<V> g, V start) {
-		
+	public static<V extends Comparable<V>> void dfs(Graph<V> g, V start, List<V> out) {
+		out.add(start);
+		List<V> voisins=g.outNeighbors(start);
+		while(voisins.size()>0){
+			V v=findMin(voisins);
+			voisins.remove(v);
+			if(!out.contains(v)) {
+				dfs(g,v,out);
+			}
+		}
+	}
+
+
+	private static<V extends Comparable<V>> V findMin(List<V> voisins) {
+		V min=voisins.get(0);
+		for(int i=1;i<voisins.size();i++) {
+			if(voisins.get(i).compareTo(min)<0) {
+				min=voisins.get(i);
+			}
+		}
+		return min;
 	}
 
 }

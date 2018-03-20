@@ -10,7 +10,7 @@ public class UndirectedAdjGraph extends Graph<Integer>  {
 
 	@Override
 	public void addEdge(Integer s, Integer t) {
-		nbEdges++;		
+		m++;		
 		if(!adjacency.containsKey(s))
 			addVertex(s);
 		if(!adjacency.containsKey(t))
@@ -24,7 +24,7 @@ public class UndirectedAdjGraph extends Graph<Integer>  {
 
 	@Override
 	public void addVertex(Integer v) {
-		nbVertices++;
+		n++;
 		adjacency.put(v, new LinkedList<>());
 		
 	}
@@ -61,7 +61,7 @@ public class UndirectedAdjGraph extends Graph<Integer>  {
 	@Override
 	public List<Integer> outNeighbors(Integer v) {
 		
-		return outNeighbors(v);
+		return inNeighbors(v);
 	}
 
 	@Override
