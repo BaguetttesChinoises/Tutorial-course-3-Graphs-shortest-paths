@@ -1,0 +1,3 @@
+composante connectée = arbre couvrant
+vertices = Sommets
+Edge = arretes
