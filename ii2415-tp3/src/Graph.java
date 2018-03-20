@@ -108,8 +108,9 @@ public abstract class Graph<V extends Comparable<V>> {
 	 */
 	public static<V extends Comparable<V>>  List<V> dfs(Graph<V> g) {
 		V start=g.vertices().get(0);
-		List<V>out=new LinkedList();
+		List<V>out=new LinkedList<V>();
 		dfs(g, start, out);
+		return out;
 	}
 	
 	
