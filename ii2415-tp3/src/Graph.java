@@ -2,8 +2,6 @@
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
-import java.util.Stack;
 
 
 /**
@@ -87,7 +85,11 @@ public abstract class Graph<V extends Comparable<V>> {
 	 * @return
 	 */
 	public boolean isConnected() {
-		
+		List<V>out=dfs(this);
+		if(out.size()==this.n) {
+			return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -96,8 +98,18 @@ public abstract class Graph<V extends Comparable<V>> {
 	 * @return
 	 */
 	public static<V extends Comparable<V>> int cc(Graph<V> g) {
+		int nb_components=1;
+		List<V>out=dfs(g);
+		while (out.size()!=g.n) {
+			int i=0;
+			nb_components++;
+			while(out.contains(g.vertices().get(i))) {
+				i++;
+			}
+			dfs(g,g.vertices().get(i),out);
+		}
 		
-		
+		return nb_components;
 	}
 	
 	/**
@@ -113,13 +125,24 @@ public abstract class Graph<V extends Comparable<V>> {
 		return out;
 	}
 	
+	public static<V extends Comparable<V>> void dfs(Graph<V> g, V start, List<V> out) {
+		out.add(start);
+		List<V> voisins=g.outNeighbors(start);
+		while(voisins.size()>0){
+			V v=findMin(voisins);
+			voisins.remove(v);
+			if(!out.contains(v)) {
+				dfs(g,v,out);
+			}
+		}
+	}
 	
 	/**
 	 * Iterative function for bfs 
 	 * @param g
 	 * @return
 	 */
-	public static<V extends Comparable<V>> void dfs(Graph<V> g, V start, List<V> out) {
+	public static<V extends Comparable<V>> void bfs(Graph<V> g, V start, List<V> out) {
 		out.add(start);
 		List<V> voisins=g.outNeighbors(start);
 		while(voisins.size()>0){
