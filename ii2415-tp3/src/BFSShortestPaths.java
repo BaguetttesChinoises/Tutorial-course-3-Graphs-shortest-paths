@@ -54,7 +54,6 @@ public class BFSShortestPaths {
 		int u = v;
 		// on suppose qu'une distance infini (le sommet est en dehors du graph) correspond 
 		//� une distance de taille = graphe.length +1
-		System.out.println("test "+distance.length);
 		if(v<=distance.length) {
 			while (distance[u-1] != 0 || (distance[u-1] != distance.length +1)) {
 				// permet deviter un out of range
