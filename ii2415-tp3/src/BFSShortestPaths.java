@@ -32,7 +32,6 @@ public class BFSShortestPaths {
 			List<Integer> voisins=g.outNeighbors(x);
 			// for each vertex Y adjacent to X
 			for (int y : voisins) {
-				System.out.println(marked.length);
 				if (marked[y-1] != true) {
 					marked[y-1] = true;
 					previous[y-1] = x;
@@ -55,18 +54,19 @@ public class BFSShortestPaths {
 		int u = v;
 		// on suppose qu'une distance infini (le sommet est en dehors du graph) correspond 
 		//� une distance de taille = graphe.length +1
+		System.out.println("test "+distance.length);
 		if(v<=distance.length) {
-		while (distance[u-1] != 0 || (distance[u-1] != distance.length +1)) {
-			// permet deviter un out of range
-			if (previous[u-1] ==0) {
-				break;
+			while (distance[u-1] != 0 || (distance[u-1] != distance.length +1)) {
+				// permet deviter un out of range
+				if (previous[u-1] ==0) {
+					break;
+				}
+				//on regarde le sommet precedent
+				u = previous[u-1];
 			}
-			//on regarde le sommet precedent
-			u = previous[u-1];
-		}
-		if (distance[u-1] == 0) {
-			return true;
-		}
+			if (distance[u-1] == 0) {
+				return true;
+			}
 		}
 		return false;
 	}
