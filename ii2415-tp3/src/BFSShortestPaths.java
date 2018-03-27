@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class BFSShortestPaths {
@@ -22,7 +23,7 @@ public class BFSShortestPaths {
 	public <V extends Comparable<V>> void bfs(Digraph g, int s) {
 		// List<Integer> sommets = g.vertices();
 		this.distance[s] = 0;
-		List<Integer> queue = null;
+		List<Integer> queue = new ArrayList<Integer>();
 		queue.add(s);
 		marked[s]=true;
 		while (queue.size() != 0) {

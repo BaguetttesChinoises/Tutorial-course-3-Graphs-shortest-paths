@@ -32,6 +32,22 @@ public class GraphFactory {
 		}
 		return g;
 	}
+	
+	public static WDgraph createWDGraphFromTextFile(String path) {
+		WDgraph g = new WDgraph();
+		try(Scanner scan = new Scanner(FileSystems.getDefault().getPath(path))){
+			while(scan.hasNextInt()) {
+				int s = scan.nextInt(),
+					d = scan.nextInt();
+				double w = scan.nextDouble();
+				DirectedEdge directedEdge = new DirectedEdge(s,d,w);
+				g.addDirectedEdge(directedEdge);
+			}	
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return g;
+	}
 
 
 }
