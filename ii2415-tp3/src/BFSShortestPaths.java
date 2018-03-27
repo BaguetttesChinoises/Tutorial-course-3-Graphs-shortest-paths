@@ -8,7 +8,6 @@ public class BFSShortestPaths {
 	
 	
 	public BFSShortestPaths(boolean[] marked, int[] previous, int[] distance) {
-		super();
 		this.marked = marked;
 		this.previous = previous;
 		this.distance = distance;
@@ -22,10 +21,10 @@ public class BFSShortestPaths {
 	 */
 	public <V extends Comparable<V>> void bfs(Digraph g, int s) {
 		// List<Integer> sommets = g.vertices();
-		this.distance[s] = 0;
+		this.distance[s-1] = 0;
 		List<Integer> queue = new ArrayList<Integer>();
 		queue.add(s);
-		marked[s]=true;
+		marked[s-1]=true;
 		while (queue.size() != 0) {
 			// Dequeue
 			int x = queue.get(queue.size()-1);
@@ -33,12 +32,19 @@ public class BFSShortestPaths {
 			List<Integer> voisins=g.outNeighbors(x);
 			// for each vertex Y adjacent to X
 			for (int y : voisins) {
-				if (marked[y] != true) {
-					marked[y] = true;
-					previous[y] = x;
-					distance[y] = distance[x] +1;
+				if (marked[y-1] != true) {
+					marked[y-1] = true;
+					previous[y-1] = x;
+					distance[y-1] = distance[x-1] +1;
 					queue.add(y);
 				}
+			}
+		}
+		// on initializes les points qui sont a lexterieur du graph a 
+		// une distance de graph.length +1 pour représenter une distance infini
+		for (int i=0;i<distance.length;i++) {
+			if (i!=s-1 && distance[i]==0) {
+				distance[i]= distance.length+1;
 			}
 		}
 		
@@ -48,10 +54,15 @@ public class BFSShortestPaths {
 		int u = v;
 		// on suppose qu'une distance infini (le sommet est en dehors du graph) correspond 
 		//à une distance de taille = graphe.length +1
-		while (distance[u] != 0 || distance[u] != distance.length +1) {
-			u = previous[u];
+		while (distance[u-1] != 0 || (distance[u-1] != distance.length +1)) {
+			// permet deviter un out of range
+			if (previous[u-1] ==0) {
+				break;
+			}
+			//on regarde le sommet precedent
+			u = previous[u-1];
 		}
-		if (distance[u] == 0) {
+		if (distance[u-1] == 0) {
 			return true;
 		}
 		else {
@@ -61,7 +72,7 @@ public class BFSShortestPaths {
 	
 	public int distTo(int v) {
 		if (hasPathTo(v)) {
-			return distance[v];
+			return distance[v-1];
 		}
 		else {
 			return distance.length +1;
@@ -72,10 +83,16 @@ public class BFSShortestPaths {
 		if (hasPathTo(v)) {
 			int u = v;
 			System.out.print(u);
-			while (distance[u] != 0) {
-				u = previous[u];
+			while (distance[u-1] != 0) {
+				// permet deviter un out of range
+				if (previous[u-1] ==0) {
+					break;
+				}
+				u = previous[u-1];
 				System.out.print(" <-> " + u);
 			}
+			System.out.println("");
+
 		}
 	}
 	
