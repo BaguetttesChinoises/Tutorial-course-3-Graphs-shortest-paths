@@ -32,6 +32,7 @@ public class BFSShortestPaths {
 			List<Integer> voisins=g.outNeighbors(x);
 			// for each vertex Y adjacent to X
 			for (int y : voisins) {
+				System.out.println(marked.length);
 				if (marked[y-1] != true) {
 					marked[y-1] = true;
 					previous[y-1] = x;
@@ -41,7 +42,7 @@ public class BFSShortestPaths {
 			}
 		}
 		// on initializes les points qui sont a lexterieur du graph a 
-		// une distance de graph.length +1 pour représenter une distance infini
+		// une distance de graph.length +1 pour reprï¿½senter une distance infini
 		for (int i=0;i<distance.length;i++) {
 			if (i!=s-1 && distance[i]==0) {
 				distance[i]= distance.length+1;
@@ -53,7 +54,8 @@ public class BFSShortestPaths {
 	public boolean hasPathTo (int v) {
 		int u = v;
 		// on suppose qu'une distance infini (le sommet est en dehors du graph) correspond 
-		//à une distance de taille = graphe.length +1
+		//ï¿½ une distance de taille = graphe.length +1
+		if(v<=distance.length) {
 		while (distance[u-1] != 0 || (distance[u-1] != distance.length +1)) {
 			// permet deviter un out of range
 			if (previous[u-1] ==0) {
@@ -65,9 +67,8 @@ public class BFSShortestPaths {
 		if (distance[u-1] == 0) {
 			return true;
 		}
-		else {
-			return false;
 		}
+		return false;
 	}
 	
 	public int distTo(int v) {
