@@ -3,7 +3,7 @@ public class Main extends GraphFactory{
 
 	public static void main(String[] args) {
 		Digraph g= createDiGraphFromTextFile("Graph/graph-DFS-BFS.txt");
-		//System.out.println("graph is connected : "g.isConnected());
+		//System.out.println("graph is connected : "+g.isConnected());
 		System.out.println("number of connected components : "+Graph.cc(g)); 
 		System.out.println("list of nodes in order of visit : "+Graph.dfs(g));
 		//test de la class BFSShortestPaths
